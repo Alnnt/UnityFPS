@@ -40,8 +40,9 @@ public class PlayerShooting : NetworkBehaviour
     }
 
     [ServerRpc]
-    private void ShootServerRPC(string hittedName, int damage)
+    private void ShootServerRPC(string name, int damage)
     {
-        // GameManager.UpdateInfo(transform.name + " hit " + hittedName);
+        Player player = GameManager.Singleton.GetPlayer(name);
+        player.TakeDamage(damage);
     }
 }

@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Singleton;
 
+    [SerializeField]
+    public MatchingSettings MatchingSettings;
+
     private static Dictionary<string, Player> players = new Dictionary<string, Player>();
 
     private void Awake()
@@ -25,15 +28,21 @@ public class GameManager : MonoBehaviour
         players.Remove(name);
     }
 
+    public Player GetPlayer(string name)
+    {
+        return players[name];
+    }
+    
     private void OnGUI()
     {
         GUILayout.BeginArea(new Rect(200f, 200f, 200f, 400f));
         GUILayout.BeginVertical();
 
+        GUI.color = Color.red;
         foreach (string name in players.Keys)
         {
-            GUI.color = Color.red;
-            GUILayout.Label(name);
+            Player player = GetPlayer(name);
+            GUILayout.Label(name + " - " + player.GetHealth());
         }
 
         GUILayout.EndVertical();

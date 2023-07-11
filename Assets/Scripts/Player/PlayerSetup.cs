@@ -24,13 +24,11 @@ public class PlayerSetup : NetworkBehaviour
             }
         }
 
-        RegisterPlayer();
-    }
 
-    private void RegisterPlayer()
-    {
-        string name = "Player " + GetComponent<NetworkObject>().NetworkObjectId.ToString();
         Player player = GetComponent<Player>();
+        player.Setup();
+
+        string name = "Player " + GetComponent<NetworkObject>().NetworkObjectId.ToString();
         GameManager.Singleton.RegisterPlayer(name, player);
     }
 
