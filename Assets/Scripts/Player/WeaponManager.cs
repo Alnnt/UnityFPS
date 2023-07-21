@@ -9,6 +9,9 @@ public class WeaponManager : NetworkBehaviour
     private PlayerWeapon PrimaryWeapon;
 
     [SerializeField]
+    private PlayerWeapon SecondaryWeapon;
+
+    [SerializeField]
     private GameObject weaponHolder;
 
     private PlayerWeapon currentWeapon;
@@ -23,6 +26,11 @@ public class WeaponManager : NetworkBehaviour
     {
         currentWeapon = weapon;
 
+        if (weaponHolder.transform.childCount > 0)
+        {
+            Destroy(weaponHolder.transform.GetChild(0).gameObject);
+        }
+
         GameObject weaponObject = Instantiate(currentWeapon.graphics, weaponHolder.transform.position, weaponHolder.transform.rotation);
         weaponObject.transform.SetParent(weaponHolder.transform);
     }
@@ -32,9 +40,41 @@ public class WeaponManager : NetworkBehaviour
         return currentWeapon;
     }
 
-    // Update is called once per frame
+    [ClientRpc]
+    private void ToggleWeaponClientRpc()
+    {
+        ToggleWeapon();
+    }
+
+    [ServerRpc]
+    private void ToggleWeaponServerRpc()
+    {
+        if (!IsHost)    // ±‹√‚host∂À÷ÿ∏¥÷¥––
+        {
+            ToggleWeapon();
+        }
+        ToggleWeaponClientRpc();
+    }
+
+    private void ToggleWeapon()
+    {
+        if (currentWeapon == PrimaryWeapon)
+        {
+            EquipWeapon(SecondaryWeapon);
+        } else
+        {
+            EquipWeapon(PrimaryWeapon);
+        }
+    }
+
     void Update()
     {
-        
+        if (IsLocalPlayer)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                ToggleWeaponServerRpc();
+            }
+        }
     }
 }
