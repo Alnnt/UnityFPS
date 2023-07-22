@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -54,14 +53,17 @@ public class Player : NetworkBehaviour
             currentHealth.Value = 0;
             isDead.Value = true;
 
-            DieOnServer();
+            if (!IsHost)
+            {
+                DieOnServer();
+            }
             DieClientRpc();
         }
     }
 
     private IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(GameManager.Singleton.MatchingSettings.respawnTime);
+        yield return new WaitForSeconds(GameManager.Singleton.matchingSettings.respawnTime);
         SetDefaults();
 
 

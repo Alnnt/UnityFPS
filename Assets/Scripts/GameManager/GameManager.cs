@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Singleton;
 
     [SerializeField]
-    public MatchingSettings MatchingSettings;
+    public MatchingSettings matchingSettings;
 
     private static Dictionary<string, Player> players = new Dictionary<string, Player>();
 

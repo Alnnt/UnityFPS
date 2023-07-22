@@ -15,6 +15,7 @@ public class WeaponManager : NetworkBehaviour
     private GameObject weaponHolder;
 
     private PlayerWeapon currentWeapon;
+    private WeaponGraphics currentGraphics;
 
     // Start is called before the first frame update
     void Start()
@@ -33,11 +34,18 @@ public class WeaponManager : NetworkBehaviour
 
         GameObject weaponObject = Instantiate(currentWeapon.graphics, weaponHolder.transform.position, weaponHolder.transform.rotation);
         weaponObject.transform.SetParent(weaponHolder.transform);
+
+        currentGraphics = weaponObject.GetComponent<WeaponGraphics>();
     }
 
     public PlayerWeapon GetPlayerWeapon()
     {
         return currentWeapon;
+    }
+
+    public WeaponGraphics GetCurrentGraphics()
+    {
+        return currentGraphics;
     }
 
     [ClientRpc]
