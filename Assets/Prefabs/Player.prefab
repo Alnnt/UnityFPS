@@ -321,12 +321,16 @@ MonoBehaviour:
     damage: 3
     range: 100
     shootRate: 10
-    graphics: {fileID: 4844548943485555238, guid: 1e231faf6187c97438384f373f5ddaf5, type: 3}
+    shootCoolDownTime: 0.4
+    recoilForce: 1
+    graphics: {fileID: 8809082844639792563, guid: 5ff08b74f7de3774d9ca580e7c02549f, type: 3}
   SecondaryWeapon:
     name: DesertEagle
-    damage: 20
+    damage: 10
     range: 100
     shootRate: 0
+    shootCoolDownTime: 0.4
+    recoilForce: 2
     graphics: {fileID: 3026946318567315834, guid: 803fd2776b896664183632072005d9e5, type: 3}
   weaponHolder: {fileID: 3689446725188506768}
 --- !u!1 &14297393150063472
